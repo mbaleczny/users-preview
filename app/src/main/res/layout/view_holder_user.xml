@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="user"
+                type="com.mbaleczny.userspreview.data.User"/>
+    </data>
+
+    <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_holder_margin"
+            android:layout_marginEnd="@dimen/view_holder_margin"
+            android:layout_marginTop="@dimen/view_holder_margin">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/view_holder_height"
+                android:padding="@dimen/view_holder_card_margin"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardPreventCornerOverlap="true"
+                app:cardCornerRadius="@dimen/view_holder_corner_radius">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/avatar"
+                        android:transitionName="@string/transition_avatar"
+                        android:layout_width="@dimen/view_holder_image_size"
+                        android:layout_height="@dimen/view_holder_image_size"
+                        android:scaleType="centerCrop"
+                        android:layout_margin="@dimen/view_holder_margin"
+                        app:avatarImage='@{user.imageUrl}'
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/guideline"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.25"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/avatar"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:text='@{user.username}'
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/view_holder_text_margin"
+                        android:layout_marginTop="@dimen/view_holder_text_margin"
+                        android:layout_marginEnd="@dimen/view_holder_text_margin"
+                        android:textSize="@dimen/view_holder_username_text_size"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textAppearance="@android:style/TextAppearance.Material.Title"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/guideline"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="Username"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/source"
+                        android:layout_width="wrap_content"
+                        android:text='@{user.source}'
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/view_holder_text_margin"
+                        android:layout_marginEnd="@dimen/view_holder_text_margin"
+                        android:textAlignment="textEnd"
+                        android:layout_marginBottom="@dimen/view_holder_text_margin"
+                        android:layout_marginTop="@dimen/view_holder_text_margin"
+                        android:textStyle="italic"
+                        android:textSize="@dimen/view_holder_source_text_size"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textAppearance="@android:style/TextAppearance.Material.Small"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/guideline"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/username"
+                        tools:text="Source"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+</layout>

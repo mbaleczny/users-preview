@@ -3,16 +3,17 @@ package com.mbaleczny.userspreview.data.repository
 import com.mbaleczny.userspreview.data.User
 import com.mbaleczny.userspreview.data.remote.DailymotionResponse
 import com.mbaleczny.userspreview.data.remote.GitHubUser
-import com.mbaleczny.userspreview.data.remote.service.ApiFactory
+import com.mbaleczny.userspreview.data.remote.service.DailymotionApi
+import com.mbaleczny.userspreview.data.remote.service.GitHubApi
 
 /**
  * @author Mariusz Baleczny
  * @date 11/05/19
  */
-class UserRepository : BaseRepository() {
-
-    private val gitHubApi = ApiFactory.github
-    private val dailymotionApi = ApiFactory.dailymotion
+class UserRepository(
+    private val gitHubApi: GitHubApi,
+    private val dailymotionApi: DailymotionApi
+) : BaseRepository() {
 
     suspend fun getUsers(): Resource<List<User>>? {
         val githubUsersResult: Resource<List<GitHubUser>> =

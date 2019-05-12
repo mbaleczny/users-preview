@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="view_holder_margin">10dp</dimen>
+    <dimen name="view_holder_card_margin">4dp</dimen>
+    <dimen name="view_holder_text_margin">16dp</dimen>
+    <dimen name="view_holder_height">100dp</dimen>
+    <dimen name="view_holder_corner_radius">4dp</dimen>
+    <dimen name="view_holder_image_size">80dp</dimen>
+    <dimen name="view_holder_username_text_size">18sp</dimen>
+    <dimen name="view_holder_source_text_size">16sp</dimen>
+    <dimen name="user_detail_image_size">240dp</dimen>
+    <dimen name="user_detail_image_margin_top">30dp</dimen>
+    <dimen name="user_detail_username_text_size">30sp</dimen>
+    <dimen name="user_detail_text_margin">16dp</dimen>
+    <dimen name="user_detail_source_text_size">22sp</dimen>
+</resources>

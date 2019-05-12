@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * @author Mariusz Baleczny
  * @date 11/05/19
  */
-object RetrofitFactory {
+class RetrofitFactory() {
 
     private val moshi: Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

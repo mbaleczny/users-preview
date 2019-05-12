@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UsersPreview</string>
+    <string name="transition_avatar">avatar</string>
+    <string name="network_error_message">Error occurred while downloading data</string>
 </resources>
