@@ -3,7 +3,10 @@ package com.mbaleczny.userspreview
 import com.mbaleczny.userspreview.data.remote.service.ApiFactory
 import com.mbaleczny.userspreview.data.remote.service.RetrofitFactory
 import com.mbaleczny.userspreview.data.repository.UserRepository
+import com.mbaleczny.userspreview.data.repository.UserRepositoryImplementation
+import com.mbaleczny.userspreview.util.CoroutinesDispatcherProvider
 import com.mbaleczny.userspreview.viewmodel.UserViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,8 +25,10 @@ val modules = module {
 
     factory { (get() as ApiFactory).dailymotion() }
 
-    single { UserRepository(get(), get()) }
+    single { CoroutinesDispatcherProvider(Dispatchers.Main, Dispatchers.Default, Dispatchers.IO) }
 
-    viewModel { UserViewModel(get()) }
+    single<UserRepository> { UserRepositoryImplementation(get(), get()) }
+
+    viewModel { UserViewModel(get(), get()) }
 
 }

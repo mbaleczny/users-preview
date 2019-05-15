@@ -6,50 +6,32 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbaleczny.userspreview.data.User
 import com.mbaleczny.userspreview.data.repository.UserRepository
+import com.mbaleczny.userspreview.util.CoroutinesDispatcherProvider
 import kotlinx.coroutines.launch
 
 /**
  * @author Mariusz Baleczny
  * @date 11/05/19
  */
-class UserViewModel(private val repository: UserRepository) : ViewModel() {
+class UserViewModel(
+    private val repository: UserRepository,
+    private val dispatcherProvider: CoroutinesDispatcherProvider
+) : ViewModel() {
 
-    private lateinit var _users: MutableLiveData<List<User>>
+    private val _users by lazy { MutableLiveData<List<User>>().also { loadUsers() } }
+    private val _isLoading by lazy { MutableLiveData<Boolean>().apply { value = true } }
+    private val _isError by lazy { MutableLiveData<Boolean>().apply { value = false } }
+
+    fun getUsers(): LiveData<List<User>> = _users
+    fun isLoading(): LiveData<Boolean> = _isLoading
+    fun isError(): LiveData<Boolean> = _isError
 
     fun loadUsers() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcherProvider.io) {
             val result = repository.getUsers()
-            _isLoading.value = false
-            _isError.value = result?.error
-            _users.value = result?.value ?: listOf()
+            _isLoading.postValue(false)
+            _isError.postValue(result?.error)
+            _users.postValue(result?.value ?: listOf())
         }
-    }
-
-    fun getUsers(): LiveData<List<User>> {
-        if (!::_users.isInitialized) {
-            _users = MutableLiveData()
-            loadUsers()
-        }
-        return _users
-    }
-
-    private lateinit var _isLoading: MutableLiveData<Boolean>
-
-    fun isLoading(): LiveData<Boolean> {
-        if (!::_isLoading.isInitialized) {
-            _isLoading = MutableLiveData()
-            _isLoading.value = true
-        }
-        return _isLoading
-    }
-
-    private lateinit var _isError: MutableLiveData<Boolean>
-
-    fun isError(): LiveData<Boolean> {
-        if (!::_isError.isInitialized) {
-            _isError = MutableLiveData()
-            _isError.value = false
-        }
-        return _isError
     }
 }
